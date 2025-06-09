@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Timer App</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h1 id="heading">STUDY TIMER</h1>
+  <div id="clockBg">
+      <div class="timer" id="timerDisplay">00:00:00</div>
+      <div>
+        <button onclick="clockIn()">Clock In</button>
+        <button onclick="toggleBreak()">Break</button>
+        <button onclick="clockOut()">Clock Out</button>
+      </div>
+  </div>
+
+  <div id="report">
+    <h2>Daily Report</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Study Time</th>
+        </tr>
+      </thead>
+      <tbody id="reportBody"></tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
