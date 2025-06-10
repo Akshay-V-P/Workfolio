@@ -47,6 +47,7 @@ body {
 
 
 /* -------------------------------------------------- */
+
 .circle{
   position: absolute;
   border-radius: 50%;
@@ -123,9 +124,9 @@ body {
   }
 }
 
-
-
-
+::-webkit-scrollbar{
+    display: none;
+}
 
 
 
