@@ -1,46 +1,68 @@
-// script.js
 let startTime = null;
 let timerInterval = null;
-let elapsed = 0;
+let totalElapsed = 0;
 let onBreak = false;
 
+const clockColor = {
+  green: ['rgba(9, 133, 19, 0.088)', '1px solid #078900'],
+  red: ['rgba(133, 11, 9, 0.088)', '1px solid #890000'],
+  default: ['rgba(255, 255, 255, 0.05)', '1px solid #2c2c2c']
+}
+
+const clockBg = document.getElementById('clockBg')
+function updateUi(colors) {
+  clockBg.style.backgroundColor = colors[0];
+  clockBg.style.border = colors[1];
+}
+
 function updateDisplay() {
+  const elapsed = getElapsedSeconds();
   const hrs = String(Math.floor(elapsed / 3600)).padStart(2, '0');
   const mins = String(Math.floor((elapsed % 3600) / 60)).padStart(2, '0');
   const secs = String(elapsed % 60).padStart(2, '0');
   document.getElementById('timerDisplay').textContent = `${hrs}:${mins}:${secs}`;
 }
 
+function getElapsedSeconds() {
+  if (!startTime) return totalElapsed;
+  return totalElapsed + Math.floor((Date.now() - startTime) / 1000);
+}
+
 function clockIn() {
   if (!timerInterval) {
     startTime = Date.now();
-    timerInterval = setInterval(() => {
-      elapsed++;
-      updateDisplay();
-    }, 1000);
+    timerInterval = setInterval(updateDisplay, 1000);
+    updateUi(clockColor.green)
   }
 }
 
 function toggleBreak() {
   if (timerInterval) {
+    totalElapsed += Math.floor((Date.now() - startTime) / 1000);
     clearInterval(timerInterval);
     timerInterval = null;
+    startTime = null;
     onBreak = true;
+    updateUi(clockColor.red)
   } else if (onBreak) {
-    timerInterval = setInterval(() => {
-      elapsed++;
-      updateDisplay();
-    }, 1000);
+    startTime = Date.now();
+    timerInterval = setInterval(updateDisplay, 1000);
     onBreak = false;
+    updateUi(clockColor.green)
   }
 }
 
 function clockOut() {
-  if (timerInterval) clearInterval(timerInterval);
-  saveTodayTime(elapsed);
+  if (timerInterval) {
+    totalElapsed += Math.floor((Date.now() - startTime) / 1000);
+    clearInterval(timerInterval);
+    updateUi(clockColor.default)
+  }
+
+  saveTodayTime(totalElapsed);
   timerInterval = null;
   startTime = null;
-  elapsed = 0;
+  totalElapsed = 0;
   updateDisplay();
   loadReport();
 }
