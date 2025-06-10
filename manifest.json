@@ -1,0 +1,21 @@
+{
+  "name": "Study Timer",
+  "short_name": "StudyTimer",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2196f3",
+  "description": "A simple study timer with daily tracking and charts.",
+  "icons": [
+    {
+      "src": "icon-192.jpg",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-192.jpg",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
